@@ -20,9 +20,5 @@
     "composite": true,
     "sourceMap": false
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "tests",
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

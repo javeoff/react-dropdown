@@ -1,13 +1,11 @@
 import typescript from 'rollup-plugin-typescript2';
 import swc from 'rollup-plugin-swc';
 import { terser } from 'rollup-plugin-terser';
-import commonjs from '@rollup/plugin-commonjs';
 
 const config = () => {
   const plugins = [
     typescript({
       tsconfig: 'tsconfig.json',
-      target: 'es5',
     }),
     swc({
       rollup: {
@@ -16,11 +14,9 @@ const config = () => {
       jsc: {
         parser: {
           syntax: 'typescript',
-          target: 'es5',
         },
       },
     }),
-    commonjs(),
   ];
 
   if (process.env.NODE_ENV === 'production') {
@@ -28,14 +24,15 @@ const config = () => {
   }
 
   return {
-    input: 'src/index.tsx',
+    input: 'src/index.ts',
     output: {
-      format: 'cjs',
+      format: 'esm',
       dir: 'dist',
+      preserveModulesRoot: './src',
       preserveModules: true,
     },
     plugins,
-    external: ['react/jsx-runtime'],
+    external: ['react/jsx-runtime', 'react'],
   };
 };
 
